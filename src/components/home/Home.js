@@ -3,12 +3,14 @@ import styles from './Home.css';
 import { enterRoom } from '../../actions';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
+import io from 'socket.io-client';
+import {SOCKET_PATH, SOCKET_HOST} from '../../utils/constants';
 
-
-const mapStateToProps = (state) => ({});
+const mapStateToProps = (state) => ({
+});
 const mapDispatchToProps = (dispatch) => ({
-  onEnterRoom(username) {
-    dispatch(enterRoom(username));
+  onEnterRoom(username, socket) {
+    dispatch(enterRoom(username, socket));
   },
 });
 class Home extends Component {
@@ -24,7 +26,8 @@ class Home extends Component {
   onSubmit() {
     const { onEnterRoom, history } = this.props;
     const inputUserName = this.input.value;
-    inputUserName.trim().length && onEnterRoom(inputUserName);
+    const socket = io.connect( SOCKET_HOST, {path: SOCKET_PATH});
+    inputUserName.trim().length && onEnterRoom(inputUserName, socket);
     history.push('/chat');
   }
 

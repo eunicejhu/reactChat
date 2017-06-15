@@ -1,27 +1,27 @@
 import React from 'react';
 import styles from './Chat.css';
-import { leaveRoom } from '../../actions';
 
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 
-const mapStateToProps = (state, ownProps) => {
+const mapStateToProps = (state) => {
   return  {
     user: state.user,
   };
 };
 const mapDispatchToProps = (dispatch) => ({
-  onLeaveRoom(id, history) {
-    dispatch(leaveRoom(id));
+  onLeaveRoom(id, history, socket) {
+    socket.emit('end');
     history.push('/');
   },
 });
 const Profile = (props) => {
   const { user, onLeaveRoom, history } = props;
+  const { socket } = user;
   return (
     <div className={styles.user}>
       <span>{user.username}</span>
-      <a onClick={() => onLeaveRoom(user.id, history)}>Leave Room</a>
+      <a onClick={() => onLeaveRoom(user.id, history, socket)}>Leave Room</a>
     </div>
   );
 };

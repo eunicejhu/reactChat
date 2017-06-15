@@ -1,9 +1,10 @@
 import { v4 } from 'uuid';
 
-export const enterRoom = (username) => ({
+export const enterRoom = (username, socket) => ({
   type: 'ENTER_ROOM',
   id: v4(),
   username,
+  socket,
 });
 
 export const leaveRoom = (user) => {

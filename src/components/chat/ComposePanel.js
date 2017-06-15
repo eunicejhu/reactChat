@@ -19,13 +19,18 @@ class ComposePanel extends Component {
 
   onSubmitMessage(e) {
     const { onSendMessage, user } = this.props;
+    const { socket } = user;
     const key = e.keyCode;
     const messageValue = this.message.value;
     if (messageValue.trim().length && key === 13) {
-      onSendMessage({
+      const message = {
         sender: user,
         content: this.message.value,
-      });
+      };
+      // user will display his own message
+      onSendMessage(message);
+      // server will broadcast to other members
+      socket.emit('send message', message);
       this.message.value = '';
       return false;
     } 

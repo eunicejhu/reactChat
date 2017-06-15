@@ -9,10 +9,6 @@ const message  = (initialState = INITIAL_STATE, action) => {
   switch (action.type) {
     case SEND_MESSAGE: 
       console.log('action in message reducer:', action);
-      // TODO: 
-      // 1. post message to server, 
-      // 2. server broadcast the message to other members
-      // 3. return ok status if broadcast success
       return { 
         sender: action.sender, 
         content: action.content,

@@ -5,27 +5,34 @@ import MemberList from './MemberList';
 import MessagesPanel from './MessagesPanel';
 import ComposePanel from './ComposePanel';
 import { connect } from 'react-redux';
-import { updateMembers } from '../../actions';
+import { updateMembers, receiveMessage } from '../../actions';
 import { withRouter } from 'react-router';
-// import io from 'socket.io-client';
-// import {SOCKET_PATH, SOCKET_HOST} from '../../utils/constants';
-// const socket = io.connect( SOCKET_HOST, {path: SOCKET_PATH});
 
-const mapStateToProps = (store) => ({
-  user: store.state,
+const mapStateToProps = (state) => ({
+  user: state.user,
 });
 const mapDispatchToProps = (dispatch) => ({
   onUpdateMembers(members) {
     dispatch(updateMembers(members));
   },
+  onReceiveMessage(message) {
+    dispatch(receiveMessage(message));
+  },
 });
 class Chat extends Component {
-
   componentDidMount() {
-    const { user, onUpdateMembers } = this.props;
-    socket.emit('enter room', user);
+    const { user, onUpdateMembers, onReceiveMessage } = this.props;
+    const { socket } = user;
+    const userData = { username: user.username, id: user.id };
+    console.log('socket in Chat from Home: ', socket);
+    socket.emit('enter room', userData);
     socket.on('update members', (members) => {
+      console.log('members', members);
       onUpdateMembers(members);
+    });
+    socket.on('receive message', (message) => {
+      console.log('message: ', message);
+      onReceiveMessage(message);
     });
   }
   render() {
