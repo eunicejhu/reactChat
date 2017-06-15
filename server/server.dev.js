@@ -1,13 +1,8 @@
-// const webpack = require('webpack');
 const _ = require('lodash');
 const path = require('path');
 const bodyparser = require('body-parser');
-// const cors = require('cors');
-// const SocketIo = require('socket.io');
 const express = require('express');
 const app = express();
-// const http = require('http').Server(app);
-// var io = SocketIo(http);
 const port = 3001;
 
 let registeredMembers = {}; //{socket.id: user};
@@ -58,10 +53,7 @@ const io = require('socket.io').listen(server, {path: '/api/chat'});
 // update members
 // const io = SocketIo(server, {path: '/api/chat'});
 io.on('connection', (socket) => {
-  console.log('a user connected');
   socket.on('enter room', (user) => {
-    console.log('enterd user: ', user);
-    console.log(user.username + ' enters the room');
     registeredMembers[socket.id] = user;
     const members = _.values(registeredMembers);
     // broadcast targets others but sender, but we need the sender get the existing members
@@ -69,7 +61,6 @@ io.on('connection', (socket) => {
     socket.broadcast.emit('update members', members);
   });
   socket.on('send message', (message) => {
-    console.log('received message: ', message);
     socket.broadcast.emit('receive message', message);
   });
   // in case of click a button. etc

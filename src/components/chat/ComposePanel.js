@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 
 const mapStateToProps = (state) => ({
   user: state.user,
+  socket: state.socket,
 });
 const mapDispatchToProps = (dispatch) => ({
   onSendMessage(message) {
@@ -18,11 +19,10 @@ class ComposePanel extends Component {
   }
 
   onSubmitMessage(e) {
-    const { onSendMessage, user } = this.props;
-    const { socket } = user;
+    const { onSendMessage, user, socket} = this.props;
     const key = e.keyCode;
     const messageValue = this.message.value;
-    if (messageValue.trim().length && key === 13) {
+    // if (messageValue.trim().length && key === 13) {
       const message = {
         sender: user,
         content: this.message.value,
@@ -31,17 +31,18 @@ class ComposePanel extends Component {
       onSendMessage(message);
       // server will broadcast to other members
       socket.emit('send message', message);
+      console.log('click to submit');
+      
       this.message.value = '';
-      return false;
-    } 
-    return true;
+    //   return false;
+    // } 
+    // return true;
   }
 
   render() {
     return (
       <form onSubmit={(e) => {e.preventDefault();}} autoComplete="off"  className={styles.composePanel}>
         <input 
-          onKeyDown={this.onSubmitMessage}
           ref={node => {this.message = node;}} 
           className={styles.composeInput}  />
         <button 

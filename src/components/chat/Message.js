@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import styles from './Chat.css';
+import { connect } from 'react-redux';
 
 class Message extends Component {
   constructor(props) {

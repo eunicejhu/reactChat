@@ -1,32 +1,50 @@
 import { v4 } from 'uuid';
+import { 
+  ACTION_ENTER_ROOM,
+  ACTION_LEAVE_ROOM, 
+  ACTION_UPDATE_MEMBERS,  
+  ACTION_SEND_MESSAGE, 
+  ACTION_RECEIVE_MESSAGE, 
+  ACTION_REGISTER_SOCKET } from '../utils/constants';
 
-export const enterRoom = (username, socket) => ({
-  type: 'ENTER_ROOM',
+export const enterRoom = (username) => ({
+  type: ACTION_ENTER_ROOM,
   id: v4(),
   username,
-  socket,
 });
 
 export const leaveRoom = (user) => {
   return ({
-    type: 'LEAVE_ROOM',
+    type: ACTION_LEAVE_ROOM,
     user,
   });
 };
 
 export const updateMembers = (members) => {
   return ({
-    type: 'UPDATE_MEMBERS',
+    type: ACTION_UPDATE_MEMBERS,
     members,
   });
 };
 
 export const sendMessage = (message) => ({
-  type: 'SEND_MESSAGE',
+  type: ACTION_SEND_MESSAGE,
   ...message,
 });
 
 export const receiveMessage = (message) => ({
-  type: 'RECEIVE_MESSAGE',
-  message,
+  type: ACTION_RECEIVE_MESSAGE,
+  ...message,
 });
+
+export const registerSocket = (socket) => {
+  console.log('socket: ', socket);
+  return {
+    type: ACTION_REGISTER_SOCKET,
+    socket,
+  };
+};
+// ({
+//   type: ACTION_REGISTER_SOCKET,
+//   socket,
+// });

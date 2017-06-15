@@ -7,6 +7,7 @@ import { withRouter } from 'react-router';
 const mapStateToProps = (state) => {
   return  {
     user: state.user,
+    socket: state.socket,
   };
 };
 const mapDispatchToProps = (dispatch) => ({
@@ -16,8 +17,7 @@ const mapDispatchToProps = (dispatch) => ({
   },
 });
 const Profile = (props) => {
-  const { user, onLeaveRoom, history } = props;
-  const { socket } = user;
+  const { user, onLeaveRoom, history, socket } = props;
   return (
     <div className={styles.user}>
       <span>{user.username}</span>

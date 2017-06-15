@@ -10,6 +10,7 @@ import { withRouter } from 'react-router';
 
 const mapStateToProps = (state) => ({
   user: state.user,
+  socket: state.socket,
 });
 const mapDispatchToProps = (dispatch) => ({
   onUpdateMembers(members) {
@@ -21,11 +22,9 @@ const mapDispatchToProps = (dispatch) => ({
 });
 class Chat extends Component {
   componentDidMount() {
-    const { user, onUpdateMembers, onReceiveMessage } = this.props;
-    const { socket } = user;
-    const userData = { username: user.username, id: user.id };
+    const { user, onUpdateMembers, onReceiveMessage, socket } = this.props;
     console.log('socket in Chat from Home: ', socket);
-    socket.emit('enter room', userData);
+    socket.emit('enter room', user);
     socket.on('update members', (members) => {
       console.log('members', members);
       onUpdateMembers(members);

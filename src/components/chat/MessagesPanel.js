@@ -4,7 +4,10 @@ import Message from './Message';
 import { connect } from 'react-redux';
 import getNow from '../../utils/getNow';
 
-const mapStateToProps = (state) => ({message: state.message});
+const mapStateToProps = (state) => ({ 
+  socket: state.socket,
+  message: state.message,
+});
 
 class MessagesPanel extends Component {
   constructor(props) {
@@ -14,6 +17,21 @@ class MessagesPanel extends Component {
     };
     this.onMessageSuicide = this.onMessageSuicide.bind(this);
   }
+
+  // componentDidMount() {
+  //   const { socket } = this.props;
+  //   socket.on('receive message', (message) => {
+  //     this.setState(preState => ({
+  //       messages: [
+  //         ...preState.messages,
+  //         {
+  //           ...message,
+  //           receivedTime: getNow(),
+  //         },
+  //       ],
+  //     }));
+  //   });
+  // }
   componentWillMount() {
     const { message } = this.props;
     this.setState(preState => ({
