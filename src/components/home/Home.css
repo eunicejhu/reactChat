@@ -1,0 +1,80 @@
+$white: #fff;
+$darkGray: #232529;
+$bottomSpacing: 1.6rem;
+
+div.home {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 80vh;
+    padding: 10vh 20vw;
+
+    label {
+      font-size: 2.4rem;
+      padding: 0 0 $bottomSpacing;
+      font-weight: bold;
+      width: 100%;
+    }
+
+    input {
+      font-weight: bold;
+      font-size: 2.2em;
+      border-style: none;
+      border-bottom: 0.1rem solid rgba(0, 0, 0, 0.2);
+      text-overflow: ellipsis;
+      background: transparent;
+      color: #fffed8;
+      outline: none;
+      margin-bottom: $bottomSpacing;
+      width: 30rem;
+      transition-duration: 0.3s;
+      transition-timing-function: ease;
+    }
+
+    button {
+      line-height: 2.2rem;
+      border-radius: 1.6rem;
+      padding: 0.2rem 2rem;
+      color: rgba(0, 0, 0, 0.4);
+      border: 3px solid $darkGray;
+      background: transparent;
+      font-weight: bold;
+      transition-duration: 0.3s;
+      transition-timing-function: ease;
+      align-self: flex-end;
+
+      &:hover {
+        cursor: pointer;
+        color: $white;
+        background-color: $darkGray;
+      }
+    }
+  }
+}
+
+@media (max-width: 860px) {
+  div.home form input.username {
+    width: 20rem;
+  }
+}
+
+@media (max-width: 490px) {
+  div.home form input.username {
+    width: 90vw;
+  }
+
+  div.home form button.submit {
+    align-self: center;
+  }
+}
+
+
+
+
