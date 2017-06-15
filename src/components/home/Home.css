@@ -1,6 +1,7 @@
 $white: #fff;
 $darkGray: #232529;
 $bottomSpacing: 1.6rem;
+$enterBtnColor: #dcdada;
 
 div.home {
   width: 100vw;
@@ -8,12 +9,13 @@ div.home {
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
 
   form {
     display: flex;
     flex-direction: column;
     align-items: center;
-    height: 80vh;
+    height: 50vh;
     padding: 10vh 20vw;
 
     label {
@@ -21,6 +23,7 @@ div.home {
       padding: 0 0 $bottomSpacing;
       font-weight: bold;
       width: 100%;
+      text-shadow: 0 0 18px black;
     }
 
     input {
@@ -42,13 +45,14 @@ div.home {
       line-height: 2.2rem;
       border-radius: 1.6rem;
       padding: 0.2rem 2rem;
-      color: rgba(0, 0, 0, 0.4);
+      color: $enterBtnColor;
       border: 3px solid $darkGray;
       background: transparent;
       font-weight: bold;
       transition-duration: 0.3s;
       transition-timing-function: ease;
       align-self: flex-end;
+      box-shadow: 0 0 3px 0px black;
 
       &:hover {
         cursor: pointer;

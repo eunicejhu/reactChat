@@ -36,3 +36,12 @@ React + Redux + Node + socket.io
 ### Remarks:
 * Chat history will not persist
 * Messages will dispear 30 seconds after displayed on messagePanel (optional)
+
+### screenshots:
+home page
+
+<img src="./images/home_page.png" width="400">
+
+chat page
+
+<img src="./images/chat_page.png" width="400">
