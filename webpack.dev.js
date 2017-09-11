@@ -2,15 +2,15 @@ const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const path = require('path');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+var WebpackBundleSizeAnalyzerPlugin = require('webpack-bundle-size-analyzer').WebpackBundleSizeAnalyzerPlugin;
 process.env.NODE_ENV = 'developement';
 const config = {
   devtool: 'inline-source-map',
   context: path.resolve(__dirname, 'src'),
-  entry: [
-    'react-hot-loader/patch',
-    './index.js',
-  ],
-  
+  entry: {
+    // main: ['react-hot-loader/patch', './index.js'],
+    demo: ['react-hot-loader/patch', './entry1.js'],
+  },
   output: {
     path: path.join(__dirname, 'src/build'),
     filename: '[name].bundle.js',
@@ -52,6 +52,7 @@ const config = {
     ],
   },
   plugins: [
+    new WebpackBundleSizeAnalyzerPlugin('./plain-report.txt'),
     new webpack.LoaderOptionsPlugin({
       options: {
         devServer: {
@@ -79,6 +80,13 @@ const config = {
     // enable HMR globally
     new webpack.NamedModulesPlugin(),
     // prints more readable module names in the browser console on HMR updates
+    new webpack.optimize.CommonsChunkPlugin(
+      {
+        name: 'commons',
+        filename: 'commons.js',
+        chunks: ['main', 'demo'],
+      }
+    ),
     new ExtractTextPlugin('[name].bundle.css'),
   ],
 };
